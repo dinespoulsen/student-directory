@@ -41,9 +41,16 @@ def input_students
 
   while !name.empty? do
     students << {name: name, cohort: cohort, age: age}
-    puts "Now we have #{students.count} students"
+    if students.count > 1 || students.count == 0
+      puts "Now we have #{students.count} student"
+    else
+      puts "Now we have #{students.count} student"
+    end
 
     name = gets.chomp
+    break if name.empty?
+    age = gets.chomp
+    cohort = gets.chomp
   end
   students
 end
