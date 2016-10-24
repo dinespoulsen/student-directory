@@ -14,7 +14,7 @@ end
 def print(names)
   i = 0
   while i < names.length
-    puts "#{i + 1}: #{names[i][:name]} (#{names[i][:cohort]} cohort)"
+    puts "#{i + 1}: #{names[i][:name]}, age #{names[i][:age]} (#{names[i][:cohort]} cohort)"
     i += 1
   end
 end
@@ -31,8 +31,11 @@ def input_students
 
   name = gets.chomp
 
+  puts "Age, if I may ask?"
+  age = gets.chomp.to_i
+
   while !name.empty? do
-    students << {name: name, cohort: :november}
+    students << {name: name, cohort: :november, age: age}
     puts "Now we have #{students.count} students"
 
     name = gets.chomp
