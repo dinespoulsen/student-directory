@@ -39,8 +39,19 @@ def print_by_letter(names)
   letter = gets.chomp
 
   names.each do |student|
-  first_letter = student[:name].to_s[0].downcase
-  puts student[:name] if letter == first_letter
+    first_letter = student[:name].to_s[0].downcase
+    puts student[:name] if letter == first_letter
+  end
+end
+
+def print_shorter_than(names)
+
+  puts "Sort by names shorter than?"
+  length = gets.chomp.to_i
+
+  names.each do |student|
+    names_length = student[:name].to_s.length
+    puts student[:name] if names_length < length
   end
 end
 
@@ -49,4 +60,5 @@ students = input_students
 print_header
 print(students)
 print_footer(students)
-print_by_letter(students)
+print_shorter_than(students)
+#print_by_letter(students)
