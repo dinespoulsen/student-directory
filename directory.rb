@@ -59,7 +59,7 @@ def print_by_letter(names)
 #  array_names = []
 
 
-  puts "Sort by letter?"
+  puts "View by letter?"
   letter = gets.chomp
 
   names.each do |student|
@@ -70,7 +70,7 @@ end
 
 def print_shorter_than(names)
 
-  puts "Sort by names shorter than?"
+  puts "View by names shorter than?"
   length = gets.chomp.to_i
 
   names.each do |student|
@@ -79,9 +79,19 @@ def print_shorter_than(names)
   end
 end
 
+def group_by_cohort(names)
+
+  puts "Group by month?"
+  month = gets.chomp
+  students = names.map do |student|
+    student if student[:cohort] == month
+  end
+end
+
 
 students = input_students
 print_header
+group_by_cohort(students)
 print(students)
 #print_footer(students)
 #print_shorter_than(students)
