@@ -23,16 +23,30 @@ def input_students
   name = gets.chomp
 
   while !name.empty? do
-    students << {name: name, cohot: :november}
+    students << {name: name, cohort: :november}
     puts "Now we have #{students.count} students"
 
     name = gets.chomp
   end
-
   students
 end
+
+def print_by_letter(names)
+#  array_names = []
+
+
+  puts "Sort by letter?"
+  letter = gets.chomp
+
+  names.each do |student|
+  first_letter = student[:name].to_s[0].downcase
+  puts student[:name] if letter == first_letter
+  end
+end
+
 
 students = input_students
 print_header
 print(students)
 print_footer(students)
+print_by_letter(students)
