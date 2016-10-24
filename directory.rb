@@ -14,7 +14,8 @@ end
 def print(names)
   i = 0
   while i < names.length
-    puts "#{i + 1}: #{names[i][:name]}, age #{names[i][:age]} (#{names[i][:cohort]} cohort)"
+    output = "#{i + 1}: #{names[i][:name]}, age #{names[i][:age]} (#{names[i][:cohort]} cohort)"
+    puts output.center(100)
     i += 1
   end
 end
