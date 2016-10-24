@@ -4,9 +4,18 @@ def print_header
   puts "------------"
 end
 
+#def print(names)
+#  names.each_with_index do |student, i|
+#
+#    puts "#{i + 1}: #{student[:name]} (#{student[:cohort]} cohort)" if student[:name].to_s.length < 12
+#  end
+#end
+
 def print(names)
-  names.each_with_index do |student, i|
-    puts "#{i + 1}: #{student[:name]} (#{student[:cohort]} cohort)" if student[:name].to_s.length < 12
+  i = 0
+  while i < names.length
+    puts "#{i + 1}: #{names[i][:name]} (#{names[i][:cohort]} cohort)"
+    i += 1
   end
 end
 
@@ -59,6 +68,6 @@ end
 students = input_students
 print_header
 print(students)
-print_footer(students)
-print_shorter_than(students)
+#print_footer(students)
+#print_shorter_than(students)
 #print_by_letter(students)
