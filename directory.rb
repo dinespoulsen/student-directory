@@ -6,7 +6,7 @@ end
 
 def print(names)
   names.each_with_index do |student, i|
-    puts "#{i + 1}: #{student[:name]} (#{student[:cohort]} cohort)"
+    puts "#{i + 1}: #{student[:name]} (#{student[:cohort]} cohort)" if student[:name].to_s.length < 12
   end
 end
 
