@@ -35,8 +35,12 @@ def input_students
   puts "Age, if I may ask?"
   age = gets.chomp.to_i
 
+  puts "Which cohort"
+  cohort = gets.chomp
+  cohort.empty? ? cohort = "November" : cohort
+
   while !name.empty? do
-    students << {name: name, cohort: :november, age: age}
+    students << {name: name, cohort: cohort, age: age}
     puts "Now we have #{students.count} students"
 
     name = gets.chomp
