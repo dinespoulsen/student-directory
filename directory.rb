@@ -29,13 +29,13 @@ end
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
-  name = gets.chomp
+  name = STDIN.gets.chomp
 
   while !name.empty? do
     puts "Age, if I may ask?"
-    age = gets.chomp
+    age = STDIN.gets.chomp
     puts "Which cohort"
-    cohort = gets.chomp
+    cohort = STDIN.gets.chomp
     cohort.empty? ? cohort = "November" : cohort
     @students << {name: name, cohort: cohort, age: age}
     if @students.count > 1 || @students.count == 0
@@ -46,7 +46,7 @@ def input_students
 
     puts "Please enter the name of another student"
     puts "To finish, just hit return twice"
-    name = gets.chomp
+    name = STDIN.gets.chomp
     break if name.empty?
   end
   return @students
@@ -57,7 +57,7 @@ def print_by_letter(names)
 
 
   puts "View by letter?"
-  letter = gets.chomp
+  letter = STDIN.gets.chomp
 
   names.each do |student|
     first_letter = student[:name].to_s[0].downcase
@@ -68,7 +68,7 @@ end
 def print_shorter_than(names)
 
   puts "View by names shorter than?"
-  length = gets.chomp.to_i
+  length = STDIN.gets.chomp.to_i
 
   names.each do |student|
     names_length = student[:name].to_s.length
@@ -79,7 +79,7 @@ end
 def group_by_month(names)
 
   puts "Group by month?"
-  month = gets.chomp
+  month = STDIN.gets.chomp
   students = names.select do |student|
     student if student[:cohort] == month
   end
@@ -120,7 +120,7 @@ end
 def save_students
   file = File.open("students.csv", "w")
   @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
+    student_data = [student[:name], student[:cohort], student[:age]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
@@ -128,19 +128,34 @@ def save_students
   puts "List saved!"
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def try_load_students
+  filename = ARGV.first
+  return if filename.nil?
+  if File.exists?(filename)
+    load_students(filename)
+    puts "Loaded #{@students.count}"
+  else
+    puts "Sorry #{filename} doesn't exist"
+    exit
+  end
+end
+
+
+def load_students(filename = "student.csv")
+
+  file = File.open(filename, "r")
   file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-    @students << {name: name, cohort: cohort.to_sym}
+    name, cohort, age = line.chomp.split(",")
+    @students << {name: name, cohort: cohort.to_sym, age: age}
   end
   file.close
 end
 
 def interactive_menu
+  try_load_students
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
