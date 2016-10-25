@@ -37,7 +37,7 @@ def input_students
     puts "Which cohort"
     cohort = STDIN.gets.chomp
     cohort.empty? ? cohort = "November" : cohort
-    @students << {name: name, cohort: cohort, age: age}
+    add_students
     if @students.count > 1 || @students.count == 0
       puts "Now we have #{@students.count} student"
     else
@@ -140,13 +140,17 @@ def try_load_students
   end
 end
 
+def add_students(name, cohort, age)
+  @students << {name: name, cohort: cohort, age: age}
+end
+
 
 def load_students(filename = "student.csv")
 
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort, age = line.chomp.split(",")
-    @students << {name: name, cohort: cohort.to_sym, age: age}
+    add_students(name, cohort, age)
   end
   file.close
 end
