@@ -37,12 +37,8 @@ def input_students
     puts "Which cohort"
     cohort = STDIN.gets.chomp
     cohort.empty? ? cohort = "November" : cohort
-    add_students
-    if @students.count > 1 || @students.count == 0
-      puts "Now we have #{@students.count} student"
-    else
-      puts "Now we have #{@students.count} student"
-    end
+    add_students(name, cohort, age)
+    puts @students.count > 1 || @students.count == 0 ? "Now we have #{@students.count} students" : "Now we have #{@students.count} student"
 
     puts "Please enter the name of another student"
     puts "To finish, just hit return twice"
@@ -130,9 +126,7 @@ end
 
 def try_load_students
   filename = ARGV.first
-  if filename.nil?
-    filename = "students.csv"
-  else
+  filename.nil? ? filename = "students.csv" : return
     if File.exists?(filename)
       load_students(filename)
       puts "Loaded #{@students.count}"
@@ -140,11 +134,11 @@ def try_load_students
       puts "Sorry #{filename} doesn't exist"
       exit
     end
-  end
 end
 
 def add_students(name, cohort, age)
   @students << {name: name, cohort: cohort, age: age}
+  puts "#{name} was added to the list"
 end
 
 
