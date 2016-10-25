@@ -83,16 +83,17 @@ def group_by_cohort(names)
 
   puts "Group by month?"
   month = gets.chomp
-  students = names.map do |student|
+  students = names.select do |student|
     student if student[:cohort] == month
   end
+  return students
 end
 
 
 students = input_students
 print_header
-group_by_cohort(students)
-print(students)
+students_by_month = group_by_cohort(students)
+print(students_by_month)
 #print_footer(students)
 #print_shorter_than(students)
 #print_by_letter(students)
