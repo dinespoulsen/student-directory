@@ -12,6 +12,7 @@ end
 #end
 
 def print(names)
+  exit if names.empty?
   i = 0
   while i < names.length
     output = "#{i + 1}: #{names[i][:name]}, age #{names[i][:age]} (#{names[i][:cohort]} cohort)"
@@ -79,7 +80,7 @@ def print_shorter_than(names)
   end
 end
 
-def group_by_cohort(names)
+def group_by_month(names)
 
   puts "Group by month?"
   month = gets.chomp
@@ -90,10 +91,11 @@ def group_by_cohort(names)
 end
 
 
+
 students = input_students
 print_header
-students_by_month = group_by_cohort(students)
-print(students_by_month)
+#students_by_month = group_by_month(students)
+print(students)
 #print_footer(students)
 #print_shorter_than(students)
 #print_by_letter(students)
