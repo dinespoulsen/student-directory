@@ -1,3 +1,4 @@
+@students = []
 #first we print the list of students
 def print_header
   puts   "The students of Villains Academy"
@@ -11,11 +12,11 @@ end
 #  end
 #end
 
-def print(names)
-  exit if names.empty?
+def print_student_list
+  exit if @students.empty?
   i = 0
-  while i < names.length
-    output = "#{i + 1}: #{names[i][:name]}, age #{names[i][:age]} (#{names[i][:cohort]} cohort)"
+  while i < @students.length
+    output = "#{i + 1}: #{@students[i][:name]}, age #{@students[i][:age]} (#{@students[i][:cohort]} cohort)"
     puts output.center(100)
     i += 1
   end
@@ -29,7 +30,6 @@ def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
 
-  students = []
 
   name = gets.chomp
 
@@ -41,11 +41,11 @@ def input_students
   cohort.empty? ? cohort = "November" : cohort
 
   while !name.empty? do
-    students << {name: name, cohort: cohort, age: age}
-    if students.count > 1 || students.count == 0
-      puts "Now we have #{students.count} student"
+    @students << {name: name, cohort: cohort, age: age}
+    if @students.count > 1 || @students.count == 0
+      puts "Now we have #{@students.count} student"
     else
-      puts "Now we have #{students.count} student"
+      puts "Now we have #{@students.count} student"
     end
 
     puts "Please enter the name of another student"
@@ -57,7 +57,7 @@ def input_students
     puts "Which cohort"
     cohort = gets.chomp
   end
-  students
+  return @students
 end
 
 def print_by_letter(names)
@@ -94,27 +94,35 @@ def group_by_month(names)
   return students
 end
 
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit"
+end
+
+def show_students
+  print_header
+  print_student_list
+  print_footer(@students)
+end
+
+def process(selection)
+  case selection
+  when "1"
+      input_students
+    when "2"
+      show_students
+    when "9"
+      exit
+    else
+      puts "I don't know what you meant, try again"
+  end
+end
+
 def interactive_menu
-students = []
   loop do
-    puts "1. Input the students"
-    puts "2. Show the students"
-    puts "9. Exit"
-
-    selection = gets.chomp
-
-    case selection
-    when "1"
-        students = input_students
-      when "2"
-        print_header
-        print(students)
-        print_footer(students)
-      when "9"
-        exit
-      else
-        puts "I don't know what you meant, try again"
-    end
+    print_menu
+    process(gets.chomp)
   end
 end
 
