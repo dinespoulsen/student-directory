@@ -38,6 +38,7 @@ def input_students
     cohort = STDIN.gets.chomp
     cohort.empty? ? cohort = "November" : cohort
     add_students(name, cohort, age)
+    puts "#{name} was added to the list"
     puts @students.count > 1 || @students.count == 0 ? "Now we have #{@students.count} students" : "Now we have #{@students.count} student"
 
     puts "Please enter the name of another student"
@@ -87,6 +88,7 @@ def print_menu
   puts "2. Show the students"
   puts "3. Save the list to students.csv"
   puts "4. Load the list from students.csv"
+  puts "5. Clear the student list"
   puts "9. Exit"
 end
 
@@ -106,6 +108,8 @@ def process(selection)
       save_students
     when "4"
       load_students
+    when "5"
+      clear_list
     when "9"
       exit
     else
@@ -140,18 +144,20 @@ end
 
 def add_students(name, cohort, age)
   @students << {name: name, cohort: cohort, age: age}
-  puts "#{name} was added to the list"
 end
 
+def clear_list
+puts @students.clear ? "List cleared" : "Couldn't clear list"
+end
 
-def load_students(filename = "student.csv")
-
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-    name, cohort, age = line.chomp.split(",")
-    add_students(name, cohort, age)
+def load_students(filename = "students.csv")
+@students.clear
+  File.open(filename, "r") do |file|
+    file.readlines.each do |line|
+      name, cohort, age = line.chomp.split(",")
+      add_students(name, cohort, age)
+    end
   end
-  file.close
 end
 
 def interactive_menu
