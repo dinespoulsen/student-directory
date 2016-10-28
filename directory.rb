@@ -49,16 +49,17 @@ def input_students
   return @students
 end
 
-def print_by_letter(names)
+def print_by_cohort
 #  array_names = []
 
+  puts "View by which month?"
+  month = STDIN.gets.chomp
+  month = month.downcase!
 
-  puts "View by letter?"
-  letter = STDIN.gets.chomp
+  @students.each do |student|
 
-  names.each do |student|
-    first_letter = student[:name].to_s[0].downcase
-    puts student[:name] if letter == first_letter
+    student_month = student[:cohort].downcase
+    puts student[:name] if month == student_month
   end
 end
 
@@ -89,6 +90,7 @@ def print_menu
   puts "3. Save the list to students.csv"
   puts "4. Load the list from students.csv"
   puts "5. Clear the student list"
+  puts "6. List students by cohort"
   puts "9. Exit"
 end
 
@@ -110,6 +112,8 @@ def process(selection)
       load_students
     when "5"
       clear_list
+    when "6"
+      print_by_cohort
     when "9"
       exit
     else
